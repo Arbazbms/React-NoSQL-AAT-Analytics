@@ -1,22 +1,21 @@
 import React from 'react'
-import {Navbar, Nav, NavDropdown,Container,} from "react-bootstrap";
-
-import { Routes, Route, Outlet, Link } from "react-router-dom";
-import App from '../App';
-import Analytics from './analytics';
+import {Navbar, Nav, Container,} from "react-bootstrap";
+import {Link} from 'react-router-dom'
+// import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
 export default function Navb() {
     return (
         <div>
-            <Navbar bg="dark" variant={"dark"} expand="lg">
+            <Navbar className = "fixed-top relative" bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <Navbar.Brand href="#">Heart Disease Analysis</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-
-                    <Nav.Link href="#link">Link</Nav.Link>
+                <Nav>
+                    <Nav.Link className="navItem"><Link to="/crud">CRUD Opertaions</Link></Nav.Link>
+                    <Nav.Link className="navItem"><Link to="/createDoc">Add a Record</Link></Nav.Link>
+                    <Nav.Link classname="navItem"><Link to="/analytics">Analytics</Link></Nav.Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

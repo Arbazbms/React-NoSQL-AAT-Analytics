@@ -1,6 +1,9 @@
 import {useState, useEffect} from "react"
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis } from 'recharts';
 import {Badge} from "react-bootstrap"
+import Navb from "./navbar";
+
+
 function Analytics() {
 
 const [male, setMale] = useState(0);
@@ -57,23 +60,26 @@ const data = [
   
   
 return (
-<div>
-  <h1>Analytics for heart Disease Dataset: </h1>
- <br/>
- <h3>Number of People wit heart Diseases: <Badge bg="primary">{d}</Badge> </h3>
- <br/>
- <h3>Number of People wit heart Diseases with Age between 20 to 50:  <Badge bg="primary">{da}</Badge></h3>
- <br/>
- <h3>Females with heart Disease: <Badge bg="primary">{female}</Badge> </h3>
- <br/>
- <h3>Males with heart Disease:<Badge bg="primary">{male}</Badge></h3>
-<BarChart width={400} height={400} data={data}>
-    <Bar dataKey="patients" fill="green" />
-    <CartesianGrid stroke="#ccc" />
-    <XAxis dataKey="name" />
-    <YAxis />
-  </BarChart>
-  </div>
+  <>
+    <Navb></Navb>
+    <div className="container analyticsContainer">
+      <h3><u>Analytics for heart Disease Dataset: </u></h3>
+    <br/>
+    <h5>1. Number of People with heart Diseases: <Badge bg="primary">{d}</Badge> </h5>
+    <br/>
+    <h5>2. Number of People with heart Diseases with Age between 20 to 50:  <Badge bg="primary">{da}</Badge></h5>
+    <br/>
+    <h5>3. Females with heart Disease: <Badge bg="primary">{female}</Badge> </h5>
+    <br/>
+    <h5>4. Males with heart Disease:<Badge bg="primary">{male}</Badge></h5><br />
+    <BarChart width={400} height={400} data={data} className="text-center container">
+        <Bar dataKey="patients" fill="green" />
+        <CartesianGrid stroke="#ccc" />
+        <XAxis dataKey="name" />
+        <YAxis />
+      </BarChart>
+      </div>
+  </>
 );
 }
 

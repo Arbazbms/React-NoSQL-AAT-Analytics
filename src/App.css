@@ -1,38 +1,109 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Inika&family=Roboto+Slab:wght@500");
+
+body {
+	font-family: "Roboto Slab";
+	/* user-select: none; */
+  color: #000;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: rgb(146, 135, 135);
+  border-bottom: 2px solid rgb(146, 135, 135);
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
+/* Links inside the navbar */
+.navbar a {
+  /* float: left !important; */
+  font-family: "Roboto Slab";
+  font-size: 20px;
+  display: block;
+  color: #000;
+  text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+}
+
+/* Change background on mouse-over */
+.navbar a:hover {
+  
+  color: black;
+}
+
+/* Main content */
+.main {
+  margin-top: 30px; /* Add a top margin to avoid content overlay */
+}
+
+.listDataContainer
+{
+  margin-top:15vh;
+}
+
+.dataCell
+{
+  color:red;
+}
+
+.banner {
+  /* width: 80vw;
+  height: 80vh; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.totalRecords 
+{ 
+  font-family: "Roboto Slab";
+  margin-top: 13vh;
+  padding-bottom: 1%;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.totalRecords1 
+{ 
+  font-family: "Roboto Slab";
+  margin-top: 4vh;
+  padding-bottom: 1%;
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.tableContents th{
+  font-family: "Inika";
+  border: 2px solid rgb(58, 52, 58) !important;
+  font-size: 18px;
+  text-align: center !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.tableContents td{
+  border: 1px solid rgb(88, 85, 88) !important;
 }
 
-.App-link {
-  color: #61dafb;
+.createDoc {
+  margin-top:13vh;
+  /* border: 2px solid rgb(58, 52, 58); */
+  /* background-color: rgb(225, 250, 253); */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* .createDoc input, select{
+  border: 2px solid;
+} */
+
+.table-container {
+  margin: auto;
+}
+
+.tableContents td{
+  font-family: 'Roboto Slab';
+  
+}
+
+.analyticsContainer {
+  margin-top: 12vh;
+  font-family: "Inika";
 }

@@ -17,6 +17,7 @@ const CreateDoc = () => {
         heartDisease: 0,
         chestPainType: "",
    });
+   const [createdDoc, setCreatedDoc] = useState(false);
     
     const {
         age,
@@ -37,10 +38,10 @@ const CreateDoc = () => {
         return fetch("http://localhost:6039/create", {
             method: "POST",
             headers: {
+                'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
             },
-            body: valueItems,
+            body: JSON.stringify(valueItems),
        })
             .then((response) => {
                 //  console.log(response.json());
@@ -66,8 +67,9 @@ const CreateDoc = () => {
         createaRecord(values).then((data) => {
             if (data.error) {
                 // setValues({ ...values, error: data.error, createdProduct: "" });
-                console.log("Error Occured, Unable to Create a Record.!"+JSON.stringify(data));
-            } else if(data.id) {
+                console.log("Error Occured, Unable to Create a Record.!");
+                setCreatedDoc(false);
+            } else {
                 setValues({
                     ...values,
                     age: "",
@@ -83,9 +85,21 @@ const CreateDoc = () => {
                     heartDisease: "",
                     chestPainType: "",
                 });
+                setCreatedDoc(true);
             }
         });
     };
+
+    const successMessage = () => {
+     return (
+          <div
+               className="alert alert-success mt-3"
+               style={{ display: createdDoc ? "" : "none" }}
+          >
+               <h5>Documnet Added Successfully.!</h5>
+          </div>
+     );
+};
 
     const createDocForm = () => (
         <form>
@@ -255,13 +269,15 @@ const CreateDoc = () => {
             <div className="container createDoc">
                 <div className="col-md-8 offset-md-2">
                     <h3 className="totalRecords1">Add a Record to Dataset</h3>
+                    {successMessage()}
                     {createDocForm()}
                     <p>
                         Age: {age}, sex: {sex}, maxHR: {maxHR},  restingBP :{restingBP}, cholesterol: {cholesterol},fastingBS: {fastingBS}, restingECG: {restingECG}, exerciseAngina: {exerciseAngina}, st_Slope
                         :{st_Slope}, oldPeak: {oldpeak}, heartDisease: {heartDisease}, chestPainType: {chestPainType} 
                         <br />
+                        
                         {/* {JSON.stringify(values)} */}
-                        {typeof(values.age)}
+                        {typeof(values.fastingBS)}
                     </p>
                 </div>
             </div>

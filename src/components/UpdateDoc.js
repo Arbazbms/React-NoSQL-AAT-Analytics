@@ -1,48 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navb from "./navbar";
 
-const UpdateDoc = () => {
+const UpdateDoc = ({match}) => {
 
-   const [values, setValues] = useState({
-        id: "",
-        age: "",
-        sex: "",
-        maxHR: "",
-        restingBP: "",
-        cholesterol: "",
-        fastingBS: "",
-        restingECG: "",
-        exerciseAngina: "",
-        st_Slope: "",
-        oldpeak: "",
-        heartDisease: "",
-        chestPainType: "",
-   });
-    
-    const {
-        id,
-        age,
-        sex,
-        maxHR,
-        restingBP,
-        cholesterol,
-        fastingBS,
-        restingECG,
-        exerciseAngina,
-        st_Slope,
-        oldpeak,
-        heartDisease,
-        chestPainType,
-    } = values;
+     const [values, setValues] = useState({
+          age: 0,
+          sex: "",
+          maxHR: 0,
+          restingBP: 0,
+          cholesterol: 0,
+          fastingBS: 0,
+          restingECG: "",
+          exerciseAngina: "",
+          st_Slope: "",
+          oldpeak: 0,
+          heartDisease: 0,
+          chestPainType: "",
+     });
+     const [createdDoc, setCreatedDoc] = useState(false);
+      
+      const {
+          age,
+          sex,
+          maxHR,
+          restingBP,
+          cholesterol,
+          fastingBS,
+          restingECG,
+          exerciseAngina,
+          st_Slope,
+          oldpeak,
+          heartDisease,
+          chestPainType,
+      } = values;
 
-    const updateaRecord = (values) => {
-        return fetch("http://localhost:6039/create", {
-            method: "POST",
+      const getDocument = (docId) => {
+          return fetch(`http://localhost:6039/${docId}`,{
+               method: 'GET',
+          }).then((response) => {
+               return response.json();
+               // console.log(response.json());
+          }).catch((err)=>console.log("Error Occured"+err));
+;      }
+
+     const preload = (docId) => {
+          getDocument(docId).then((data)=>{
+               if(data == null)
+               {
+                    setValues({...values});
+                    console.log("Error in fetching the record to update.!")
+               } else {
+                    setValues({
+                         ...values, 
+                         age: data.age,
+                         sex: data.sex,
+                         maxHR: data.maxHR,
+                         restingBP: data.restingBP,
+                         cholesterol: data.cholesterol,
+                         fastingBS: data.fastingBS,
+                         restingECG: data.restingECG,
+                         exerciseAngina: data.exerciseAngina,
+                         st_Slope: data.st_Slope,
+                         oldpeak: data.oldpeak,
+                         heartDisease: data.heartDisease,
+                         chestPainType: data.chestPainType,
+                    });
+               }
+          })
+     } 
+
+     useEffect(()=>{
+          preload(match.params.docId);
+     },[]);    
+
+    const updateaRecord = (docId, values) => {
+        return fetch(`http://localhost:6039/{$docId}`, {
+            method: "PUT",
             headers: {
-                // ContentType: "application/json",
-                Accept: "application/json",
+               'Content-Type': 'application/json',
+               'Accept': 'application/json',
             },
-            body: values,
+            body: JSON.stringify(values),
        })
             .then((response) => {
                 //  console.log(response.json());
@@ -61,7 +99,7 @@ const UpdateDoc = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         setValues({...values});
-        updateaRecord(values).then((data) => {
+        updateaRecord(match.params.docId, values).then((data) => {
             if (data.error) {
                 // setValues({ ...values, error: data.error, createdProduct: "" });
                 console.log("Error Occured, Unable to Create a Record.!");
@@ -82,22 +120,24 @@ const UpdateDoc = () => {
                     heartDisease: "",
                     chestPainType: "",
                 });
+                setCreatedDoc(true);
             }
         });
     };
 
+    const successMessage = () => {
+     return (
+          <div
+               className="alert alert-success mt-3"
+               style={{ display: createdDoc ? "" : "none" }}
+          >
+               <h5>Document Updated Successfully.!</h5>
+          </div>
+     );
+};
+
     const createDocForm = () => (
         <form>
-             <div className="form-group">
-                  <input
-                       onChange={handleChange("id")}
-                       name="id"
-                       type="number"
-                       className="form-control"
-                       placeholder="Id "
-                       value={id}
-                  />
-             </div>
              <div className="form-group">
                   <input
                        onChange={handleChange("age")}
@@ -253,10 +293,11 @@ const UpdateDoc = () => {
             <Navb/>
             <div className="container createDoc">
                 <div className="col-md-8 offset-md-2">
-                    <h3 className="totalRecords1">Add a Record to Dataset</h3>
+                    <h3 className="totalRecords1">Update the Record</h3>
+                    {successMessage()}
                     {createDocForm()}
                     <p>
-                        Id: {id}, Age: {age}, sex: {sex}, maxHR: {maxHR},  restingBP :{restingBP}, cholesterol: {cholesterol},fastingBS: {fastingBS}, restingECG: {restingECG}, exerciseAngina: {exerciseAngina}, st_Slope
+                        Age: {age}, sex: {sex}, maxHR: {maxHR},  restingBP :{restingBP}, cholesterol: {cholesterol},fastingBS: {fastingBS}, restingECG: {restingECG}, exerciseAngina: {exerciseAngina}, st_Slope
                         :{st_Slope}, oldPeak: {oldpeak}, heartDisease: {heartDisease}, chestPainType: {chestPainType} 
                     </p>
                 </div>

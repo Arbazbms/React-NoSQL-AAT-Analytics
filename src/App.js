@@ -17,7 +17,7 @@ function App() {
           <Switch>
               <Route path='/crud' exact component={ListData} />  
               <Route path='/createDoc' exact component={CreateDoc} />  
-              <Route path='/updateDoc' exact component={UpdateDoc} />  
+              <Route path='/updateDoc/:docId' exact component={UpdateDoc} />  
               <Route path='/analytics' exact component={Analytics} />  
           </Switch>      
       </>

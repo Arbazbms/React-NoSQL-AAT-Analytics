@@ -74,7 +74,7 @@ const UpdateDoc = ({match}) => {
      },[]);    
 
     const updateaRecord = (docId, values) => {
-        return fetch(`http://localhost:6039/{$docId}`, {
+        return fetch(`http://localhost:6039/${docId}`, {
             method: "PUT",
             headers: {
                'Content-Type': 'application/json',
@@ -283,7 +283,7 @@ const UpdateDoc = ({match}) => {
                   onClick={onSubmit}
                   className="btn btn-outline-success mb-4"
              >
-                  Add Record
+                  Update Record
              </button>
         </form>
    );
